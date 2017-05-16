@@ -17,13 +17,34 @@ This project has the following defaults in place that you can use as a starting 
 To try this out locally with the default configuration for H2, just do the following:
 
 1. Clone this repo
-1. Verify you have ML 8+ installed locally and that port 8000 (the default one) points to the Documents database 
+1. Verify you have ML 8+ or ML 9+ installed locally and that port 8000 (the default one) points to the Documents database 
 (you can of course modify this to write to any database you want)
 1. Verify that the username/password properties in gradle.properties are correct for your MarkLogic cluster (it's best 
 not to use the admin user unless absolutely necessary, but this defaults to it for the sake of convenience)
 1. Run ./gradlew ingest
 
 You should see some logging like this:
+
+    14:20:54.770 [main] INFO  org.example.IngestConfig - API: rest
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Chunk size: 100
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Hosts: localhost
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Root local name: persons
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Child record name: person
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Collections: example
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Permissions: rest-reader,read,rest-writer,update
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Thread count: 16
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Input file path: data/1000-persons.csv
+    14:20:54.773 [main] INFO  org.example.IngestConfig - Row count: 2
+    14:20:54.788 [main] INFO  org.example.IngestConfig - Client username: admin
+    14:20:54.788 [main] INFO  org.example.IngestConfig - Client database: Documents
+    14:20:54.788 [main] INFO  org.example.IngestConfig - Client authentication: DIGEST
+    14:20:54.788 [main] INFO  org.example.IngestConfig - Creating client for host: localhost
+    14:20:55.001 [main] INFO  org.example.IngestConfig - Initialized components, launching job
+    14:20:55.073 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream open, initializing BatchWriter
+    14:20:55.564 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream open, finished initializing BatchWriter
+    14:20:55.816 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream close, waiting for BatchWriter to complete
+    14:20:56.273 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream close, finished waiting for BatchWriter to complete
+    14:20:56.273 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - Final Write Count: 500
 
 When using the sample H2 database, you only need to run "setupH2" once. And of course, when you're using your own 
 database, you can remove this task from build.gradle.
@@ -33,9 +54,9 @@ via Gradle's -P mechanism. For example, to load the data as JSON instead of XML:
 
     ./gradlew ingest -Pdocument_type=json
 
-The program defaults to using DMSDK (requires ML9) to write to ML; you can use the REST API instead:
+If you have ML9, you can try out the new Data Movement SDK (DMSDK):
 
-    ./gradlew ingest -Papi=rest
+    ./gradlew ingest -Papi=dmsdk
 
 Or load the data via XCC instead of the REST API:
 
