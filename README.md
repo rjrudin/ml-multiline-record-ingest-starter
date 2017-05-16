@@ -46,9 +46,6 @@ You should see some logging like this:
     14:20:56.273 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream close, finished waiting for BatchWriter to complete
     14:20:56.273 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - Final Write Count: 500
 
-When using the sample H2 database, you only need to run "setupH2" once. And of course, when you're using your own 
-database, you can remove this task from build.gradle.
-
 The configuration properties are all in gradle.properties. You can modify those properties on the command line
 via Gradle's -P mechanism. For example, to load the data as JSON instead of XML:
 
