@@ -14,7 +14,7 @@ This project has the following defaults in place that you can use as a starting 
 
 ## How do I try this out?
 
-To try this out locally with the default configuration for H2, just do the following:
+To try this out locally, just do the following:
 
 1. Clone this repo
 1. Verify you have ML 8+ or ML 9+ installed locally and that port 8000 (the default one) points to the Documents database 
