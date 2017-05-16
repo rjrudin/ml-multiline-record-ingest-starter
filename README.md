@@ -62,9 +62,25 @@ Or load the data via XCC instead of the REST API:
 
     ./gradlew ingest -Papi=xcc
 
+For both the REST API and XCC, you can specify multiple hosts to send requests to:
+
+    ./gradlew ingest -Phosts=host1,host2,host3
+
 You can easily modify the thread count and chunk size:
 
     ./gradlw ingest -Pchunk=50 -Pthread_count=32
+
+And you can modify the row count:
+
+    ./gradlew ingest -Prow_count=17
+
+Or provide your own file:
+
+    ./gradlew ingest -Pinput_file_path=/path/to/my.csv
+
+Or customize the root and child element names:
+
+    ./gradlew ingest -Proot_local_name=my-root -Pchild_record_name=my-child
 
 Or just modify gradle.properties and start building your own application. 
 
