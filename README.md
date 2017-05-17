@@ -23,29 +23,6 @@ To try this out locally, just do the following:
 not to use the admin user unless absolutely necessary, but this defaults to it for the sake of convenience)
 1. Run ./gradlew ingest
 
-You should see some logging like this:
-
-    14:20:54.770 [main] INFO  org.example.IngestConfig - API: rest
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Chunk size: 100
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Hosts: localhost
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Root local name: persons
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Child record name: person
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Collections: example
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Permissions: rest-reader,read,rest-writer,update
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Thread count: 16
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Input file path: data/1000-persons.csv
-    14:20:54.773 [main] INFO  org.example.IngestConfig - Row count: 2
-    14:20:54.788 [main] INFO  org.example.IngestConfig - Client username: admin
-    14:20:54.788 [main] INFO  org.example.IngestConfig - Client database: Documents
-    14:20:54.788 [main] INFO  org.example.IngestConfig - Client authentication: DIGEST
-    14:20:54.788 [main] INFO  org.example.IngestConfig - Creating client for host: localhost
-    14:20:55.001 [main] INFO  org.example.IngestConfig - Initialized components, launching job
-    14:20:55.073 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream open, initializing BatchWriter
-    14:20:55.564 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream open, finished initializing BatchWriter
-    14:20:55.816 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream close, waiting for BatchWriter to complete
-    14:20:56.273 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - On stream close, finished waiting for BatchWriter to complete
-    14:20:56.273 [main] INFO  c.m.s.b.i.writer.MarkLogicItemWriter - Final Write Count: 500
-
 The configuration properties are all in gradle.properties. You can modify those properties on the command line
 via Gradle's -P mechanism. For example, to load the data as JSON instead of XML:
 
@@ -63,11 +40,11 @@ For both the REST API and XCC, you can specify multiple hosts to send requests t
 
     ./gradlew ingest -Phosts=host1,host2,host3
 
-You can easily modify the thread count and chunk size:
+You can easily modify the file thread count, the MarkLogic thread count, and the chunk size (batch size):
 
-    ./gradlw ingest -Pchunk=50 -Pthread_count=32
+    ./gradlw ingest -Pfile_thread_count=8 -Pthread_count=32 -Pchunk=50 
 
-And you can modify the row count:
+And you can modify the row count - the number of rows that are combined into a single document:
 
     ./gradlew ingest -Prow_count=17
 
