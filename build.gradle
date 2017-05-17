@@ -45,7 +45,8 @@ task ingest(type: JavaExec) {
 	"--child_record_name", child_record_name,
 	"--document_type", document_type,
 	"--input_file_path", input_file_path,
-	"--row_count", row_count
+	"--row_count", row_count,
+	"--file_thread_count", file_thread_count
   ]
 }
 

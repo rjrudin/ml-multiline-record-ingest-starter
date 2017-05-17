@@ -1,6 +1,7 @@
 package org.example;
 
 import com.marklogic.client.document.DocumentWriteOperation;
+import com.marklogic.client.helper.LoggingObject;
 import com.marklogic.client.impl.DocumentWriteOperationImpl;
 import com.marklogic.client.io.DocumentMetadataHandle;
 import com.marklogic.client.io.StringHandle;
@@ -15,7 +16,7 @@ import java.util.UUID;
  * ColumnMapSerializer, and then providing very basic support for setting permissions and collections.
  * marklogic-spring-batch provides other options for e.g. customizing the URI. Feel free to customize any way you'd like.
  */
-public class ColumnMapProcessor implements ItemProcessor<Map<String, Object>, DocumentWriteOperation> {
+public class ColumnMapProcessor extends LoggingObject implements ItemProcessor<Map<String, Object>, DocumentWriteOperation> {
 
 	private ColumnMapSerializer columnMapSerializer;
 	private String tableNameKey = "_tableName";

@@ -28,7 +28,7 @@ public class ColumnMapFieldSetMapper extends LoggingObject implements FieldSetMa
 		int rowCount = fieldCount / fieldNames.length;
 		for (int i = 0; i < rowCount; i++) {
 			Map<String, Object> record = new HashMap<>();
-			int index = rowCount * i;
+			int index = fieldNames.length * i;
 			for (int j = 0; j < fieldNames.length; j++) {
 				record.put(fieldNames[j], fieldSet.readString(index++));
 			}
