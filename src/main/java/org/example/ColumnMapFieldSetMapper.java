@@ -1,6 +1,7 @@
 package org.example;
 
 import com.marklogic.client.helper.LoggingObject;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.util.Assert;
@@ -30,13 +31,18 @@ public class ColumnMapFieldSetMapper extends LoggingObject implements FieldSetMa
 			Map<String, Object> record = new HashMap<>();
 			int index = fieldNames.length * i;
 			for (int j = 0; j < fieldNames.length; j++) {
-				record.put(fieldNames[j], fieldSet.readString(index++));
+				record.put(fieldNames[j], readString(fieldSet, index));
 			}
 			records.add(record);
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put(recordName, records);
 		return map;
+	}
+
+	protected String readString(FieldSet fieldSet, int index) {
+		String value = fieldSet.readString(index);
+		return StringEscapeUtils.escapeXml11(value);
 	}
 
 	public void setFieldNames(String[] fieldNames) {

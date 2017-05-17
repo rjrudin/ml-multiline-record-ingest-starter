@@ -8,8 +8,8 @@ can clone/fork/etc to quickly extend and customize for your specific needs.
 This project has the following defaults in place that you can use as a starting point:
 
 1. Defaults to writing to MarkLogic using localhost/8000/admin/admin
-1. Defaults to reading the example file data/1000-persons.csv
-1. Defaults to combining every 2 lines into 1 document
+1. Defaults to reading examples files from ./data/**/*.*
+1. Defaults to combining every 10 lines into 1 document
 1. Has a Gradle task for launching the ingest - "./gradlew ingest"
 
 ## How do I try this out?
@@ -71,9 +71,9 @@ And you can modify the row count:
 
     ./gradlew ingest -Prow_count=17
 
-Or provide your own file:
+Or point to a different path:
 
-    ./gradlew ingest -Pinput_file_path=/path/to/my.csv
+    ./gradlew ingest -Pinput_file_path=file:/path/to/lots/of/files/**/*.*
 
 Or customize the root and child element names:
 
