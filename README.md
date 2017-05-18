@@ -8,7 +8,7 @@ can clone/fork/etc to quickly extend and customize for your specific needs.
 This project has the following defaults in place that you can use as a starting point:
 
 1. Defaults to writing to MarkLogic using localhost/8000/admin/admin
-1. Defaults to reading examples files from ./data/**/*.*
+1. Defaults to reading examples files from ./data/persons/*.*
 1. Defaults to combining every 10 lines into 1 document
 1. Has a Gradle task for launching the ingest - "./gradlew ingest"
 

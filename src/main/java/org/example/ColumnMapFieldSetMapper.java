@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * FieldSetMapper that operaets on a ColumnMap.
+ * FieldSetMapper that operates on a ColumnMap.
  */
 public class ColumnMapFieldSetMapper extends LoggingObject implements FieldSetMapper<Map<String, Object>> {
 
@@ -31,7 +31,7 @@ public class ColumnMapFieldSetMapper extends LoggingObject implements FieldSetMa
 			Map<String, Object> record = new HashMap<>();
 			int index = fieldNames.length * i;
 			for (int j = 0; j < fieldNames.length; j++) {
-				record.put(fieldNames[j], readString(fieldSet, index));
+				record.put(fieldNames[j], readString(fieldSet, index + j));
 			}
 			records.add(record);
 		}

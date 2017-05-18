@@ -19,6 +19,13 @@ public class ColumnMapLineCallbackHandler implements LineCallbackHandler {
 	public void handleLine(String line) {
 		DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer(DelimitedLineTokenizer.DELIMITER_COMMA);
 		FieldSet fs = tokenizer.tokenize(line);
-		mapper.setFieldNames(fs.getValues());
+		String[] values = fs.getValues();
+		for (int i = 0; i < values.length; i++) {
+			String val = values[i];
+			val = val.replaceAll(" ", "-");
+			val = val.replace("?", "");
+			values[i] = val;
+		}
+		mapper.setFieldNames(values);
 	}
 }

@@ -93,7 +93,7 @@ public class IngestConfig extends LoggingObject implements EnvironmentAware, Opt
 	public ThreadPoolTaskExecutor partitionTaskExecutor(@Value("#{jobParameters['file_thread_count'] ?: 4}") Integer fileThreadCount) {
 		ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 		taskExecutor.setCorePoolSize(fileThreadCount);
-		taskExecutor.setThreadNamePrefix("ingest-thread-");
+		taskExecutor.setThreadNamePrefix("file-reader-thread-");
 		taskExecutor.afterPropertiesSet();
 		return taskExecutor;
 	}
