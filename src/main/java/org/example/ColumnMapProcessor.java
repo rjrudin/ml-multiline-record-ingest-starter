@@ -19,7 +19,6 @@ import java.util.UUID;
 public class ColumnMapProcessor extends LoggingObject implements ItemProcessor<Map<String, Object>, DocumentWriteOperation> {
 
 	private ColumnMapSerializer columnMapSerializer;
-	private String tableNameKey = "_tableName";
 	private String rootLocalName = "CHANGEME";
 
 	// Expected to be role,capability,role,capability,etc.
@@ -35,24 +34,18 @@ public class ColumnMapProcessor extends LoggingObject implements ItemProcessor<M
 
 	@Override
 	public DocumentWriteOperation process(Map<String, Object> item) throws Exception {
-		String tableName = null;
-		if (item.containsKey(tableNameKey)) {
-			tableName = (String)item.get(tableNameKey);
-			item.remove(tableNameKey);
+		if (item.isEmpty()) {
+			return null;
 		}
 
-		String thisRootLocalName = tableName != null ? tableName : rootLocalName;
-		String content = columnMapSerializer.serializeColumnMap(item, thisRootLocalName);
+		String content = columnMapSerializer.serializeColumnMap(item, rootLocalName);
 
 		String uuid = UUID.randomUUID().toString();
-		String uri = "/" + thisRootLocalName + "/" + uuid + uriSuffix;
+		String uri = "/" + rootLocalName + "/" + uuid + uriSuffix;
 
 		DocumentMetadataHandle metadata = new DocumentMetadataHandle();
 		if (collections != null) {
 			metadata.withCollections(collections);
-		}
-		if (tableName != null) {
-			metadata.withCollections(tableName);
 		}
 
 		if (permissions != null) {
@@ -77,10 +70,6 @@ public class ColumnMapProcessor extends LoggingObject implements ItemProcessor<M
 
 	public void setPermissions(String[] permissions) {
 		this.permissions = permissions;
-	}
-
-	public void setTableNameKey(String tableNameKey) {
-		this.tableNameKey = tableNameKey;
 	}
 
 	public void setUriSuffix(String uriSuffix) {

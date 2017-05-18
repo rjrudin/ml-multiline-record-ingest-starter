@@ -36,7 +36,10 @@ public class ColumnMapFieldSetMapper extends LoggingObject implements FieldSetMa
 			records.add(record);
 		}
 		Map<String, Object> map = new HashMap<>();
-		map.put(recordName, records);
+		if (!records.isEmpty()) {
+			logger.info("Record count: " + records.size());
+			map.put(recordName, records);
+		}
 		return map;
 	}
 
